@@ -10,6 +10,7 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Navbar from './components/Navbar.vue';
+import '@/assets/theme.scss';
 
 @Options({
   components: { Navbar },
