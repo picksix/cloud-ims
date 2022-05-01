@@ -10,6 +10,7 @@
     <div class="navbar-menu" :class="navbarStyle">
       <div class="navbar-start">
         <router-link to="/" class="navbar-item">Home</router-link>
+        <router-link to="/store" class="navbar-item">Store</router-link>
       </div>
       <div class="navbar-end">
         <router-link to="/staff" class="navbar-item">Staff</router-link>
