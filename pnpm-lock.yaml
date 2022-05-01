@@ -12,6 +12,7 @@ specifiers:
   '@vue/compiler-sfc': ^3.0.0
   '@vue/eslint-config-airbnb': ^5.0.2
   '@vue/eslint-config-typescript': ^7.0.0
+  bulmaswatch: ^0.8.1
   core-js: ^3.6.5
   eslint: ^6.7.2
   eslint-plugin-import: ^2.20.2
@@ -25,6 +26,7 @@ specifiers:
   vuex: ^4.0.0-0
 
 dependencies:
+  bulmaswatch: 0.8.1
   core-js: 3.22.3
   vue: 3.2.33
   vue-class-component: 8.0.0-rc.1_vue@3.2.33
@@ -2874,6 +2876,10 @@ packages:
   /builtin-status-codes/3.0.0:
     resolution: {integrity: sha1-hZgoeOIbmOHGZCXgPQF0eI9Wnug=}
     dev: true
+
+  /bulmaswatch/0.8.1:
+    resolution: {integrity: sha512-7HGm5v9If6gzxbTht4/oVS0dhySp6g/JyTrxmpSXHXgDQXivvxiuVmcJOZo3PFv9GAOn4om7SK36I2V8W81sgw==}
+    dev: false
 
   /bytes/3.0.0:
     resolution: {integrity: sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg=}
