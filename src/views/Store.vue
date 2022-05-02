@@ -2,13 +2,13 @@
 <div>
   <span class="shop-title">Rowdy Shop</span>
   <div class="main-shop">
-    <div class="product-box" v-for="index in 10" :key="index">
+    <div class="product-box" v-for="p in products" :key="p.name">
       <div class="product-item">
-        <img src="" alt="">
+        <img :src="p.image" :alt="p.name">
       </div>
       <div class="product-info">
-        <h3>Product Name</h3>
-        <button> Add to Cart</button>
+        <h3>{{p.name}}</h3>
+        <button @click="select(p)">View</button>
       </div>
     </div>
   </div>
@@ -18,8 +18,38 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 
-@Options({})
-export default class Staff extends Vue {}
+type Product = {
+  id: string;
+  name: string;
+  image: string;
+};
+
+type Products = Product[];
+
+@Options({
+  data: () => ({
+    products: [
+      {
+        name: 'smiley face',
+        image: 'https://clipartmag.com/images/transparent-smiley-face-10.png',
+        id: 'asd123',
+      },
+    ] as Products,
+  }),
+  methods: {
+    select(product: Product) {
+      this.$router.push({
+        name: 'product',
+        params: {
+          id: product.id,
+        },
+      });
+    },
+  },
+})
+export default class Staff extends Vue {
+  products!: Products;
+}
 </script>
 
 <style scoped>
