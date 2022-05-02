@@ -6,7 +6,7 @@
       <div class="box">
         Welcome to the Rowdy Store!
         <div class="buttons is-right">
-          <div class="button is-dark is-large">
+          <div class="button is-dark is-large" @click="viewStore">
             <span>Check it out</span>
             <span class="icon">
               <i class="fas fa-arrow-right"></i>
@@ -23,6 +23,14 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 
-@Options({})
+@Options({
+  methods: {
+    viewStore() {
+      this.$router.push({
+        name: 'store',
+      });
+    },
+  },
+})
 export default class Home extends Vue {}
 </script>
