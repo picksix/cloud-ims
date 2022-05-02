@@ -30,7 +30,7 @@
             </div>
         </form>
         <div class="productPrice">Price: $</div>
-        <button class="button-6" role="button">Add to Cart</button>
+        <button class="cart-button" role="button">Add to Cart</button>
     </div>
 </div>
 </template>
@@ -130,7 +130,7 @@ label {
     height: 75px;
 }
 
-.button-6 {
+.cart-button {
   text-align: center;
   align-items: center;
   background-color: #f87721;
@@ -160,18 +160,18 @@ label {
   width: auto;
 }
 
-.button-6:hover,
-.button-6:focus {
+.cart-button:hover,
+.cart-button:focus {
   border-color: rgba(0, 0, 0, 0.15);
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
   color: rgba(0, 0, 0, 0.65);
 }
 
-.button-6:hover {
+.cart-button:hover {
   transform: translateY(-1px);
 }
 
-.button-6:active {
+.cart-button:active {
   background-color: #F0F0F1;
   border-color: rgba(0, 0, 0, 0.15);
   box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
