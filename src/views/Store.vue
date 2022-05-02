@@ -34,6 +34,21 @@ type Products = Product[];
         image: 'https://clipartmag.com/images/transparent-smiley-face-10.png',
         id: 'asd123',
       },
+      {
+        name: 'UTSA Shirt',
+        image: 'https://clipartmag.com/images/transparent-smiley-face-10.png',
+        id: 'abc321',
+      },
+      {
+        name: 'Another face',
+        image: 'https://clipartmag.com/images/transparent-smiley-face-10.png',
+        id: 'fdw123',
+      },
+      {
+        name: 'Same Shirt',
+        image: 'https://clipartmag.com/images/transparent-smiley-face-10.png',
+        id: 'jwv321',
+      },
     ] as Products,
   }),
   methods: {
