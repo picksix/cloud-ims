@@ -30,7 +30,13 @@
             </div>
         </form>
         <div class="productPrice">Price: $</div>
-        <button class="cart-button" role="button">Add to Cart</button>
+        <button class="cart-button" id="cartButton" @click="openPopup()">Buy Now</button>
+    </div>
+    <div class="popup">
+        <img src="../IconImages/checkbox-circle-line.png">
+        <h2>Thank You!</h2>
+        <p>Your purchase was successful! You will now be sent back to the store page.</p>
+        <button type="button" @click="closePopup()">OK</button>
     </div>
 </div>
 </template>
@@ -40,11 +46,24 @@ import { Options, Vue } from 'vue-class-component';
 
 @Options({})
 export default class Product extends Vue {}
+
+// const popup = document.getElementById('cartButton');
+
+// function openPopup() : void {
+//   // const popup = document.getElementById('cartButton');
+//   popup.classList.add('open-popup');
+// }
+
+// function closePopup() : void{
+//   // const popup = document.getElementById('cartButton');
+//   popup.classList.remove('open-popup');
+// }
+
 </script>
 
 <style scoped>
 .productMain {
-    height: 350px;
+    height: 800px;
 }
 
 .productImage {
@@ -107,7 +126,14 @@ export default class Product extends Vue {}
 .quantity select{
     float: right;
     margin-right: 100px;
-
+    margin-top: 5px;
+    background: white;
+    border-style: groove;
+    border-color: black;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
 }
 
 label {
@@ -151,10 +177,7 @@ label {
   min-height: 3rem;
   padding: calc(.875rem - 1px) calc(1.5rem - 1px);
   position: relative;
-  text-decoration: none;
   transition: all 250ms;
-  user-select: none;
-  -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: baseline;
   width: auto;
@@ -177,5 +200,56 @@ label {
   box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
   color: rgba(0, 0, 0, 0.65);
   transform: translateY(0);
+}
+
+.popup {
+    width: 400px;
+    background: #fff;
+    border-radius: 6px;
+    border-style: solid;
+    border-color: orange;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50% scale(0.1));
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #333;
+    visibility: hidden;
+    transition: transform .4s, top .4s;
+}
+
+.popup img{
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background: white;
+}
+
+.popup h2 {
+    font-size: 26px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+
+.popup button {
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px 0;
+    background: #4a7cd9;
+    color: white;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.open-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50% scale(1));
 }
 </style>
