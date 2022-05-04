@@ -38,12 +38,12 @@
         <form action="POST">
           <br>
           <label for="purchaseName">Name:</label>
-          <input type="text" name="purchaseName" id="purchaseName"><br><br>
+          <input type="text" name="purchaseName" id="purchaseName" v-model="name"><br><br>
           <label for="ccn">CCN:</label>
           <input type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}"
-          maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+          maxlength="19" placeholder="xxxx xxxx xxxx xxxx" v-model="ccn">
         </form>
-        <button type="button" @click="closePurchasePopup(); buy()">Complete Purchase</button>
+        <button type="button" @click="buy()">Complete Purchase</button>
   </div>
   <div class="popup has-text-centered" :class="popupClass">
         <img src="../IconImages/checkbox-circle-line.png">
@@ -61,6 +61,8 @@ import { Options, Vue } from 'vue-class-component';
   data: () => ({
     popup: false,
     orderpopup: false,
+    name: '',
+    ccn: '',
   }),
   computed: {
     popupClass() {
@@ -83,7 +85,9 @@ import { Options, Vue } from 'vue-class-component';
     },
     buy() {
       // TODO: call buy, if success, popup
+      console.log(this.ccn, this.name);
       this.popup = true;
+      this.closePurchasePopup();
     },
     goToStore() {
       this.$router.push({
