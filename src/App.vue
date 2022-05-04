@@ -1,11 +1,7 @@
 <template>
   <Navbar/>
   <section class="section" style="padding-top: 20px;">
-    <router-view v-slot="{ Component }">
-      <transition name="fade" mode="out-in">
-        <component :is="Component" />
-      </transition>
-    </router-view>
+    <router-view/>
   </section>
 </template>
 
