@@ -3,7 +3,9 @@
   <p class="titleName">Product Name</p>
   <div class="productMain">
     <div class="productImage" id="prod">
+      <div class="imgDiv">
         <img src="https://clipartmag.com/images/transparent-smiley-face-10.png" alt="smileyFace">
+      </div>
     </div>
     <div class="productDesc" id="prod">
         <h1 class="productName">Product Name</h1>
@@ -11,26 +13,22 @@
             <div class="description">
                 <label for="describe">Product Description</label>
                 <div class="prodDescInfo">
-                    <p>This product blah blah blah blah blah blah blah blah blah
-                        blah blah blah
+                    <p>Fake Description - This product is a smiley face limited edition NFT.
                     </p>
                 </div>
             </div>
             <hr>
             <div class="stockCount">
                 <label for="quantcount">In Stock</label>
-                <p>36 available</p>
+                <p><strong>36</strong> available</p>
             </div>
             <hr>
             <div class="quantity">
                 <label for="prodQuantity">Product Quantity</label>
-                <select name="quantity" id="quant">
-                    <option>Select Quantity</option>
-                    <option v-for="i in 10" :key="i"> {{ i }} </option>
-                </select>
+                <input type="number" name="quantity" id="quant" min="1" max="36">
             </div>
         </form>
-        <div class="productPrice">Price: $</div>
+        <div class="productPrice">Price: $24.99</div>
         <button class="cart-button" id="cartButton" @click="buy()">Buy Now</button>
     </div>
 
@@ -86,18 +84,24 @@ export default class Product extends Vue {
     border-style: solid;
     border-color: orange;
     height: 800px;
-    background-color:rgb(255, 252, 248);
+    background-color:black;
 }
 
-.productImage img {
-    display: block;
+ .productImage img {
     max-width: 50%;
     max-height:50%;
+    align-self: center;
     width: auto;
     height: auto;
-    float:right;
-    padding-right: 25%;
-    padding-top: 25%;
+    margin: auto;
+    display: flex;
+}
+
+.imgDiv {
+  justify-content: center;
+  margin-top: 12%;
+  max-width: 720;
+  max-height: 740;
 }
 
 .productDesc {
@@ -106,7 +110,7 @@ export default class Product extends Vue {
     border-style: solid;
     border-color: orange;
     height: 550px;
-    background-color:rgb(255, 252, 248);
+    background-color: black;
 }
 
 .productName {
@@ -115,7 +119,7 @@ export default class Product extends Vue {
      'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 36px;
     font-style: bold;
-    color: black;
+    color: white;
 }
 
 .description {
@@ -126,7 +130,7 @@ export default class Product extends Vue {
     max-height: 80px;
     float: right;
     margin-right: 25px;
-    color: black;
+    color: white;
     overflow: hidden;
 }
 
@@ -134,12 +138,12 @@ export default class Product extends Vue {
     float: right;
     margin-right: 120px;
     text-align: center;
-    color: black;
+    color: white;
 }
 
-.quantity select{
+.quantity input{
     float: right;
-    margin-right: 100px;
+    margin-right: 135px;
     margin-top: 5px;
     background: white;
     border-style: groove;
@@ -148,17 +152,21 @@ export default class Product extends Vue {
     cursor: pointer;
     font-size: 14px;
     border-radius: 5px;
+    width: 50px;
+    height: 30px;
+    font-weight: 600;
 }
 
 label {
-    color: black;
+    color: white;
     font-family: 'Courier New', Courier, monospace;
     font-size: 20px;
     margin-left: 10px;
+    font-weight: bold;
 }
 
 .productPrice {
-    color: black;
+    color: white;
     font-family: 'Courier New', Courier, monospace;
     font-size: 24px;
     font-weight: bold;
@@ -218,17 +226,17 @@ label {
 
 .popup {
     width: 400px;
-    background: #fff;
+    background: rgb(35, 41, 59);
     border-radius: 6px;
     border-style: solid;
     border-color: orange;
     position: absolute;
     top: 0;
-    left: 50%;
+    left: 40%;
     transform: translate(-50%, -50% scale(0.1));
     text-align: center;
     padding: 0 30px 30px;
-    color: #333;
+    color: rgb(255, 255, 255);
     visibility: hidden;
     transition: transform .4s, top .4s;
 }
@@ -238,7 +246,7 @@ label {
     margin-top: -50px;
     border-radius: 50%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    background: white;
+    background: rgb(255, 255, 255);
 }
 
 .popup h2 {
@@ -263,7 +271,7 @@ label {
 
 .open-popup {
     visibility: visible;
-    top: 50%;
+    top: 40%;
     transform: translate(-50%, -50% scale(1));
 }
 </style>
