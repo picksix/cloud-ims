@@ -51,7 +51,13 @@
           </thead>
           <tbody>
             <tr v-for="product in products" :key="product.id">
-              <td>{{product.name}}</td>
+              <td>
+                <p>
+                  {{product.name}} <span class="has-text-danger" v-if="product.quantity === 0">
+                    Out of stock!
+                  </span>
+                </p>
+              </td>
               <td>{{product.quantity}}</td>
               <td>${{product.price}}</td>
               <td>
