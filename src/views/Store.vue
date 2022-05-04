@@ -17,25 +17,12 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-
-type Product = {
-  id: string;
-  name: string;
-  image: string;
-};
-
-type Products = Product[];
+import { Product } from '@/api/types';
 
 @Options({
-  data: () => ({
-    products: [
-      {
-        name: 'smiley face',
-        image: 'https://clipartmag.com/images/transparent-smiley-face-10.png',
-        id: 'asd123',
-      },
-    ] as Products,
-  }),
+  computed: {
+    products() { return this.$store.state.products; },
+  },
   methods: {
     select(product: Product) {
       this.$router.push({
@@ -47,9 +34,7 @@ type Products = Product[];
     },
   },
 })
-export default class Staff extends Vue {
-  products!: Products;
-}
+export default class Staff extends Vue {}
 </script>
 
 <style scoped>
