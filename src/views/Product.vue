@@ -35,8 +35,8 @@
             </div>
         </form>
         <div v-if="product.quantity > 0">
-          <div class="productPrice">Price: ${{product.price}}</div>
-          <div class="productPrice">Total: ${{product.price * quantity}}</div>
+          <div class="productPrice">Price: {{formattedPrice}}</div>
+          <div class="productPrice">Total: {{formattedTotal}}</div>
           <button class="cart-button" id="cartButton" @click="purchasePopup()">Buy Now</button>
         </div>
     </div>
@@ -91,8 +91,20 @@ import { Options, Vue } from 'vue-class-component';
         (product: ProductInstance) => product.id === this.$route.params.id,
       );
     },
+    formattedPrice() {
+      return this.format(this.product.price);
+    },
+    formattedTotal() {
+      return this.format(this.product.price * this.quantity);
+    },
   },
   methods: {
+    format(number: number) {
+      return Intl.NumberFormat(navigator.language, {
+        style: 'currency',
+        currency: 'USD',
+      }).format(number);
+    },
     closePurchasePopup() {
       this.orderpopup = false;
     },
