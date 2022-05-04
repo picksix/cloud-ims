@@ -103,6 +103,7 @@ import { Options, Vue } from 'vue-class-component';
       return Intl.NumberFormat(navigator.language, {
         style: 'currency',
         currency: 'USD',
+        minimumFractionDigits: 0,
       }).format(number);
     },
     closePurchasePopup() {

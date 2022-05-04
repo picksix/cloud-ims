@@ -60,7 +60,7 @@
               </td>
               <td v-if="product.quantity === 0" class="has-text-danger">{{product.quantity}}</td>
               <td v-else>{{product.quantity}}</td>
-              <td>${{product.price}}</td>
+              <td>{{format(product.price)}}</td>
               <td>
                 <a @click="editProduct(product)">Edit</a>
               </td>
@@ -105,6 +105,13 @@ import { Options, Vue } from 'vue-class-component';
     products() { return this.$store.state.products; },
   },
   methods: {
+    format(number: number) {
+      return Intl.NumberFormat(navigator.language, {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+      }).format(number);
+    },
     resetData() {
       this.editData = {
         name: '',
