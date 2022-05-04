@@ -62,7 +62,7 @@
               <td v-else>{{product.quantity}}</td>
               <td>{{format(product.price)}}</td>
               <td>
-                <a @click="editProduct(product)">Edit</a>
+                <a @click="editProduct(product)" class="is-unselectable">Edit</a>
               </td>
             </tr>
           </tbody>
@@ -71,7 +71,7 @@
     </div>
     <div class="column is-half">
       <div class="box">
-        <h1 class="title is-2">Actions</h1>
+        <h1 class="title is-2 is-unselectable">Actions</h1>
         <div class="buttons">
           <div class="button is-primary" @click="openEditor">Create</div>
         </div>

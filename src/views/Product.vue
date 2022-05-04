@@ -1,4 +1,16 @@
 <template>
+<div class="modal" :class="errorModalClass" >
+  <div class="modal-background" @click="closeError"></div>
+  <div class="modal-content">
+    <div class="box">
+      <h1 class="title is-1">Error</h1>
+      Sorry, but your purchase failed.
+      <br>
+      <br>
+      <button class="button" @click="closeError">OK</button>
+    </div>
+  </div>
+</div>
 <div v-if="product">
   <p class="titleName">{{product.name}}</p>
   <div class="productMain">
@@ -30,7 +42,7 @@
                 <label for="prodQuantity">Product Quantity</label>
                 <input type="number" name="quantity" class="input"
                   min="1" :max="product.quantity"
-                  v-model="quantity">
+                  v-model="quantity" @change="quantityChange">
               </div>
             </div>
         </form>
@@ -72,10 +84,15 @@ import { Options, Vue } from 'vue-class-component';
     popup: false,
     orderpopup: false,
     quantity: 1,
+    buying: false,
+    err: false,
     name: '',
     ccn: '',
   }),
   computed: {
+    errorModalClass(): string {
+      return this.err ? 'is-active' : '';
+    },
     popupClass() {
       return {
         'open-popup': this.popup,
@@ -106,17 +123,41 @@ import { Options, Vue } from 'vue-class-component';
         minimumFractionDigits: 0,
       }).format(number);
     },
+    quantityChange() {
+      const p = this.product;
+      if (!p) return;
+      if (this.quantity > p.quantity) {
+        this.quantity = p.quantity;
+      }
+    },
+    closeError() {
+      this.err = undefined;
+    },
     closePurchasePopup() {
       this.orderpopup = false;
     },
     purchasePopup() {
       this.orderpopup = true;
     },
-    buy() {
-      // TODO: call buy, if success, popup
-      console.log(this.ccn, this.name);
-      this.popup = true;
-      this.closePurchasePopup();
+    async buy() {
+      if (this.buying) return;
+      this.buying = true;
+      try {
+        const success = await this.$store.dispatch('buyProduct', {
+          id: this.product.id,
+          quantity: this.quantity,
+        });
+        if (!success) {
+          this.err = true;
+        } else {
+          this.popup = true;
+        }
+      } catch (e) {
+        console.error(e);
+      } finally {
+        this.closePurchasePopup();
+        this.buying = false;
+      }
     },
     goToStore() {
       this.$router.push({

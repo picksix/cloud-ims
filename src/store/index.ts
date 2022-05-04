@@ -1,4 +1,6 @@
-import { addProduct, products, updateProduct } from '@/api/store';
+import {
+  addProduct, buyProduct, products, updateProduct,
+} from '@/api/store';
 import {
   MaybeProduct, Product, ProductInstance, Products,
 } from '@/api/types';
@@ -20,8 +22,8 @@ const store = createStore({
     },
   },
   actions: {
-    buyProduct(context, payload) {
-      console.log('buying');
+    async buyProduct(context, payload) {
+      await buyProduct(payload.id, payload.quantity);
     },
     hasProduct(context, id) {
       return context.state.products.find((product) => product.id === id);
