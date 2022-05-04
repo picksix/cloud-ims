@@ -23,7 +23,7 @@ const store = createStore({
   },
   actions: {
     async buyProduct(context, payload) {
-      await buyProduct(payload.id, payload.quantity);
+      return buyProduct(payload.id, payload.quantity);
     },
     hasProduct(context, id) {
       return context.state.products.find((product) => product.id === id);

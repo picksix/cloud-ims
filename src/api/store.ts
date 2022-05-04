@@ -17,9 +17,9 @@ export function updateProduct(id: string, p: Product) {
   return updateDoc(d, p);
 }
 
-export async function buyProduct(id: string, quantity: number) {
+export function buyProduct(id: string, quantity: number) {
   const d = doc(products, id);
-  await runTransaction(firestore, async (context) => {
+  return runTransaction(firestore, async (context) => {
     const product = await context.get(d);
     if (!product.exists()) return false;
     const data = product.data() as Product;

@@ -141,6 +141,7 @@ import { Options, Vue } from 'vue-class-component';
     },
     async buy() {
       if (this.buying) return;
+      this.err = false;
       this.buying = true;
       try {
         const success = await this.$store.dispatch('buyProduct', {
