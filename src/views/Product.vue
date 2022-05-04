@@ -1,6 +1,7 @@
 <template>
-<p class="titleName">Product Name</p>
-<div class="productMain">
+<div>
+  <p class="titleName">Product Name</p>
+  <div class="productMain">
     <div class="productImage" id="prod">
         <img src="https://clipartmag.com/images/transparent-smiley-face-10.png" alt="smileyFace">
     </div>
@@ -30,13 +31,15 @@
             </div>
         </form>
         <div class="productPrice">Price: $</div>
-        <button class="cart-button" id="cartButton" @click="openPopup()">Buy Now</button>
+        <button class="cart-button" id="cartButton" @click="buy()">Buy Now</button>
     </div>
-    <div class="popup">
+
+  </div>
+  <div class="popup has-text-centered" :class="popupClass">
         <img src="../IconImages/checkbox-circle-line.png">
         <h2>Thank You!</h2>
         <p>Your purchase was successful! You will now be sent back to the store page.</p>
-        <button type="button" @click="closePopup()">OK</button>
+        <button type="button" @click="goToStore()">OK</button>
     </div>
 </div>
 </template>
@@ -44,21 +47,32 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 
-@Options({})
-export default class Product extends Vue {}
-
-// const popup = document.getElementById('cartButton');
-
-// function openPopup() : void {
-//   // const popup = document.getElementById('cartButton');
-//   popup.classList.add('open-popup');
-// }
-
-// function closePopup() : void{
-//   // const popup = document.getElementById('cartButton');
-//   popup.classList.remove('open-popup');
-// }
-
+@Options({
+  data: () => ({
+    popup: false,
+  }),
+  computed: {
+    popupClass() {
+      return {
+        'open-popup': this.popup,
+      };
+    },
+  },
+  methods: {
+    buy() {
+      // TODO: call buy, if success, popup
+      this.popup = true;
+    },
+    goToStore() {
+      this.$router.push({
+        name: 'store',
+      });
+    },
+  },
+})
+export default class Product extends Vue {
+  popup!: boolean
+}
 </script>
 
 <style scoped>
