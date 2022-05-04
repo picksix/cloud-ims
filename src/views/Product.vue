@@ -29,16 +29,28 @@
             </div>
         </form>
         <div class="productPrice">Price: $24.99</div>
-        <button class="cart-button" id="cartButton" @click="buy()">Buy Now</button>
+        <button class="cart-button" id="cartButton" @click="purchasePopup()">Buy Now</button>
     </div>
 
+  </div>
+  <div class="orderpopup" :class="orderpopupClass">
+        <img src="../IconImages/checkbox-circle-line.png">
+        <form action="POST">
+          <br>
+          <label for="purchaseName">Name:</label>
+          <input type="text" name="purchaseName" id="purchaseName"><br><br>
+          <label for="ccn">CCN:</label>
+          <input type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}"
+          maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+        </form>
+        <button type="button" @click="closePurchasePopup(); buy()">Complete Purchase</button>
   </div>
   <div class="popup has-text-centered" :class="popupClass">
         <img src="../IconImages/checkbox-circle-line.png">
         <h2>Thank You!</h2>
         <p>Your purchase was successful! You will now be sent back to the store page.</p>
         <button type="button" @click="goToStore()">OK</button>
-    </div>
+  </div>
 </div>
 </template>
 
@@ -48,6 +60,7 @@ import { Options, Vue } from 'vue-class-component';
 @Options({
   data: () => ({
     popup: false,
+    orderpopup: false,
   }),
   computed: {
     popupClass() {
@@ -55,8 +68,19 @@ import { Options, Vue } from 'vue-class-component';
         'open-popup': this.popup,
       };
     },
+    orderpopupClass() {
+      return {
+        'open-popup': this.orderpopup,
+      };
+    },
   },
   methods: {
+    closePurchasePopup() {
+      this.orderpopup = false;
+    },
+    purchasePopup() {
+      this.orderpopup = true;
+    },
     buy() {
       // TODO: call buy, if success, popup
       this.popup = true;
@@ -224,6 +248,53 @@ label {
   transform: translateY(0);
 }
 
+.orderpopup {
+    width: 400px;
+    background: rgb(35, 41, 59);
+    border-radius: 6px;
+    border-style: solid;
+    border-color: orange;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: left;
+    padding: 0 30px 30px;
+    color: rgb(255, 255, 255);
+    visibility: hidden;
+    transition: transform .4s, top .4s;
+}
+
+.orderpopup img{
+    width: 100px;
+    margin-top: -50px;
+    padding-left: 0;
+    margin-left: 125px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background: rgb(255, 255, 255);
+}
+
+.orderpop label {
+  /* float: left; */
+  text-align: left;
+  margin-left: 10px;
+}
+
+.orderpopup button {
+  width: 100%;
+    margin-top: 50px;
+    padding: 10px 0;
+    background: #4a7cd9;
+    color: white;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 .popup {
     width: 400px;
     background: rgb(35, 41, 59);
@@ -232,8 +303,8 @@ label {
     border-color: orange;
     position: absolute;
     top: 0;
-    left: 40%;
-    transform: translate(-50%, -50% scale(0.1));
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
     text-align: center;
     padding: 0 30px 30px;
     color: rgb(255, 255, 255);
@@ -271,7 +342,7 @@ label {
 
 .open-popup {
     visibility: visible;
-    top: 40%;
-    transform: translate(-50%, -50% scale(1));
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
 }
 </style>
