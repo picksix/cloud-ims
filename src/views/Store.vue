@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { Product } from '@/api/types';
+import { ProductInstance } from '@/api/types';
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
@@ -24,7 +24,7 @@ import { Options, Vue } from 'vue-class-component';
     products() { return this.$store.state.products; },
   },
   methods: {
-    select(product: Product) {
+    select(product: ProductInstance) {
       this.$router.push({
         name: 'product',
         params: {

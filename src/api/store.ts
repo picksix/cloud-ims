@@ -1,70 +1,22 @@
-// import axios from 'axios';
-import { db } from '@/firebase';
-import { onValue, ref } from 'firebase/database';
-import { Products } from './types';
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { firestore } from '@/firebase';
+import {
+  addDoc, collection, doc, updateDoc,
+} from 'firebase/firestore';
 
-const products = ref(db, 'products');
+import { Product } from './types';
 
-onValue(products, (snapshot) => {
-  console.log(snapshot);
-});
+export const products = collection(firestore, 'products');
 
-// axios.defaults.baseURL = "http://localhost:5000/api";
-// db.collection('product').orderBy('timestamp').onSnapshot((querySnapshot: unknown[]) => {
-//   // product.value=[]
-//   querySnapshot.forEach((doc: unknown) => {
-//     console.log('data!', doc);
-//     // product.value.push(doc.data());
-//   });
-// });
+export function addProduct(p: Product) {
+  return addDoc(products, p);
+}
 
-// async function getProducts() {
-//   console.log('fetching prodecuts');
-//   return product.value
-// }
-// async function buyProduct(id, quantity) {
-//   let timestamp = new Date().getTime()
-//   console.log('buying, id, quantity);
-//   if (product.quantity >= quantity) {
-//       db.collection('product').doc(id).update({
-//           quantity: fs.firestore.FieldValue.increment(quantity)
-//       })
-//       db.collection('order').doc(timestamp).set({
-//           id: string,
-//           quantity: quantity,
-//       },{merge:true})
-//   }
-// };
-// async function addProduct(id, quantity) {
-//   db.collection('product').doc(id).update({
-//       quantity: fs.firestore.FieldValue.increment(quantity)
-//   })
-// }
+export function updateProduct(id: string, p: Product) {
+  const d = doc(products, id);
+  return updateDoc(d, p);
+}
 
-export const getProducts = (): Products => {
-  // axios.get('/api/products');
-  // TODO: fetch
-  console.log('fetching products');
-  return [
-    {
-      name: 'Smiley face',
-      price: 1,
-      quantity: 10,
-      description: 'A smiley face',
-      image: 'https://clipartmag.com/images/transparent-smiley-face-10.png',
-      id: 'asd123',
-    },
-    {
-      name: 'Frown',
-      price: 2,
-      quantity: 0,
-      description: 'A frown',
-      image: 'https://img.icons8.com/emoji/452/frowning-face.png',
-      id: '122223',
-    },
-  ];
-};
-
-export const buyProduct = (id: string, quantity: number): void => {
+export function buyProduct(id: string, quantity: number) {
   console.log('buying', id, quantity);
-};
+}

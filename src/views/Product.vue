@@ -1,35 +1,44 @@
 <template>
-<div>
-  <p class="titleName">Product Name</p>
+<div v-if="product">
+  <p class="titleName">{{product.name}}</p>
   <div class="productMain">
     <div class="productImage" id="prod">
       <div class="imgDiv">
-        <img src="https://clipartmag.com/images/transparent-smiley-face-10.png" alt="smileyFace">
+        <img :src="product.image" alt="smileyFace">
       </div>
     </div>
     <div class="productDesc" id="prod">
-        <h1 class="productName">Product Name</h1>
+        <h1 class="productName">{{product.name}}</h1>
         <form action="POST">
             <div class="description">
                 <label for="describe">Product Description</label>
                 <div class="prodDescInfo">
-                    <p>Fake Description - This product is a smiley face limited edition NFT.
-                    </p>
+                    <p>{{product.description}}</p>
                 </div>
             </div>
             <hr>
-            <div class="stockCount">
+            <div class="stockCount" v-if="product.quantity > 0">
                 <label for="quantcount">In Stock</label>
-                <p><strong>36</strong> available</p>
+                <p><strong>{{product.quantity}}</strong> available</p>
             </div>
-            <hr>
-            <div class="quantity">
+            <div class="stockCount" v-else>
+                <label for="quantcount" class="has-text-danger">Out of Stock!</label>
+            </div>
+            <div v-if="product.quantity > 0">
+              <hr>
+              <div class="quantity">
                 <label for="prodQuantity">Product Quantity</label>
-                <input type="number" name="quantity" id="quant" min="1" max="36">
+                <input type="number" name="quantity" class="input"
+                  min="1" :max="product.quantity"
+                  v-model="quantity">
+              </div>
             </div>
         </form>
-        <div class="productPrice">Price: $24.99</div>
-        <button class="cart-button" id="cartButton" @click="purchasePopup()">Buy Now</button>
+        <div v-if="product.quantity > 0">
+          <div class="productPrice">Price: ${{product.price}}</div>
+          <div class="productPrice">Total: ${{product.price * quantity}}</div>
+          <button class="cart-button" id="cartButton" @click="purchasePopup()">Buy Now</button>
+        </div>
     </div>
 
   </div>
@@ -55,12 +64,14 @@
 </template>
 
 <script lang="ts">
+import { ProductInstance } from '@/api/types';
 import { Options, Vue } from 'vue-class-component';
 
 @Options({
   data: () => ({
     popup: false,
     orderpopup: false,
+    quantity: 1,
     name: '',
     ccn: '',
   }),
@@ -74,6 +85,11 @@ import { Options, Vue } from 'vue-class-component';
       return {
         'open-popup': this.orderpopup,
       };
+    },
+    product() {
+      return this.$store.state.products.find(
+        (product: ProductInstance) => product.id === this.$route.params.id,
+      );
     },
   },
   methods: {

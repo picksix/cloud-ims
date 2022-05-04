@@ -12,9 +12,6 @@ import '@/assets/theme.scss';
 
 @Options({
   components: { Navbar },
-  async mounted() {
-    await this.$store.dispatch('initialize');
-  },
 })
 export default class Staff extends Vue {}
 </script>

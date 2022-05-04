@@ -1,5 +1,4 @@
 export type Product = {
-  id: string;
   name: string;
   image: string;
   price: number;
@@ -7,4 +6,12 @@ export type Product = {
   description: string;
 };
 
-export type Products = Product[];
+export type MaybeProduct = Product & {
+  id?: string
+}
+
+export type ProductInstance = Product & {
+  id: string;
+}
+
+export type Products = ProductInstance[];
