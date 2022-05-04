@@ -58,7 +58,8 @@
                   </span>
                 </p>
               </td>
-              <td>{{product.quantity}}</td>
+              <td v-if="product.quantity === 0" class="has-text-danger">{{product.quantity}}</td>
+              <td v-else>{{product.quantity}}</td>
               <td>${{product.price}}</td>
               <td>
                 <a @click="editProduct(product)">Edit</a>
