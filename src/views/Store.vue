@@ -1,13 +1,13 @@
 <template>
 <div>
-  <span class="shop-title">Rowdy Shop</span>
+  <h1 class="title is-1">Rowdy Store</h1>
   <div class="main-shop">
     <div class="product-box" v-for="p in products" :key="p.name">
       <div class="product-item">
         <img :src="p.image" :alt="p.name">
       </div>
       <div class="product-info">
-        <h3>{{p.name}}</h3>
+        <h3 :class="textClass(p)">{{p.name}}</h3>
         <button @click="select(p)">View</button>
       </div>
     </div>
@@ -31,6 +31,11 @@ import { Options, Vue } from 'vue-class-component';
           id: product.id,
         },
       });
+    },
+    textClass(product: ProductInstance) {
+      return {
+        'has-text-danger': product.quantity === 0,
+      };
     },
   },
 })
