@@ -17,7 +17,6 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { Product } from '@/api/types';
 
 @Options({
   computed: {
@@ -34,7 +33,6 @@ import { Product } from '@/api/types';
     },
   },
 })
-export default class Staff extends Vue {}
 </script>
 
 <style scoped>
