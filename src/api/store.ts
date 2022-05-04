@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { firestore } from '@/firebase';
 import {
-  addDoc, collection, doc, getDoc, runTransaction, updateDoc,
+  addDoc, collection, doc, runTransaction, updateDoc,
 } from 'firebase/firestore';
 
 import { Product } from './types';
