@@ -120,7 +120,14 @@ import { Options, Vue } from 'vue-class-component';
       this.openEditor();
     },
     editProduct(product: ProductInstance) {
-      this.editData = product;
+      this.editData = {
+        name: product.name ?? '',
+        description: product.description ?? '',
+        price: product.price ?? 0,
+        quantity: product.quantity ?? 0,
+        image: product.image ?? '',
+        id: product.id,
+      };
       this.openEditor();
     },
     openEditor() {
