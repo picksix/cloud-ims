@@ -76,6 +76,7 @@
 </template>
 
 <script lang="ts">
+import { Order } from '@/api/store';
 import { ProductInstance } from '@/api/types';
 import { Options, Vue } from 'vue-class-component';
 
@@ -147,7 +148,9 @@ import { Options, Vue } from 'vue-class-component';
         const success = await this.$store.dispatch('buyProduct', {
           id: this.product.id,
           quantity: this.quantity,
-        });
+          name: this.name,
+          cc: this.ccn,
+        } as Order);
         if (!success) {
           this.err = true;
         } else {

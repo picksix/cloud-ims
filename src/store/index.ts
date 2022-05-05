@@ -1,5 +1,5 @@
 import {
-  addProduct, buyProduct, products, updateProduct,
+  addProduct, buyProduct, deleteProduct, Order, products, updateProduct,
 } from '@/api/store';
 import {
   MaybeProduct, Product, ProductInstance, Products,
@@ -11,6 +11,7 @@ const store = createStore({
   state: {
     initialized: false,
     products: [] as Products,
+    orders: [] as Order[],
   },
   mutations: {
     setProducts(state, list) {
@@ -22,8 +23,8 @@ const store = createStore({
     },
   },
   actions: {
-    async buyProduct(context, payload) {
-      return buyProduct(payload.id, payload.quantity);
+    async buyProduct(context, payload: Order) {
+      return buyProduct(payload);
     },
     hasProduct(context, id) {
       return context.state.products.find((product) => product.id === id);
@@ -53,10 +54,13 @@ const store = createStore({
       await updateProduct(id, existingProduct);
       existingProduct.id = id;
     },
-    addProduct(context, payload: ProductInstance) {
+    async addProduct(context, payload: ProductInstance) {
       const newProduct = payload as MaybeProduct;
       delete newProduct.id;
       return addProduct(newProduct as Product);
+    },
+    async deleteProduct(context, id: string) {
+      return deleteProduct(id);
     },
   },
   modules: {

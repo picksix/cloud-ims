@@ -27,9 +27,14 @@
           <br>
           <p class="help has-text-danger" v-if="error">{{error}}</p>
 
-          <div class="buttons is-right" v-if="!submitting">
-            <div class="button is-success" @click="submit" v-if="editData.id == null">Create</div>
-            <div class="button is-primary" @click="submit" v-else>Edit</div>
+          <div v-if="!submitting">
+            <div class="buttons is-right" v-if="editData.id == null">
+              <div class="button is-success" @click="submit">Create</div>
+            </div>
+            <div class="buttons is-right" v-else>
+              <div class="button is-danger" @click="deleteProduct">Delete</div>
+              <div class="button is-primary" @click="submit">Edit</div>
+            </div>
           </div>
         </div>
 
@@ -39,8 +44,16 @@
   <div class="columns">
     <div class="column is-half">
       <div class="box">
-        <h1 class="title is-2">Products</h1>
-        <table class="table is-fullwidth">
+        <div class="level">
+          <div class="level-left">
+            <h1 class="title is-2 level-item">Products</h1>
+          </div>
+          <div class="level-right">
+            <div class="button is-success level-item" @click="openCreator">Create</div>
+          </div>
+        </div>
+
+        <table class="table is-fullwidth" v-if="products.length">
           <thead>
             <tr>
               <th>Name</th>
@@ -67,13 +80,43 @@
             </tr>
           </tbody>
         </table>
+        <div class="has-text-centered" v-else>
+          <p class="subtitle">No products to display!</p>
+        </div>
       </div>
     </div>
     <div class="column is-half">
       <div class="box">
-        <h1 class="title is-2 is-unselectable">Actions</h1>
-        <div class="buttons">
-          <div class="button is-primary" @click="openEditor">Create</div>
+        <h1 class="title is-2 is-unselectable">Recent Orders</h1>
+        <table class="table is-fullwidth" v-if="orders.length">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th class="is-narrow">Quantity</th>
+              <th class="is-narrow">Price</th>
+              <th class="is-narrow"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="product in products" :key="product.id">
+              <td>
+                <p>
+                  {{product.name}} <span class="has-text-danger" v-if="product.quantity === 0">
+                    Out of stock!
+                  </span>
+                </p>
+              </td>
+              <td v-if="product.quantity === 0" class="has-text-danger">{{product.quantity}}</td>
+              <td v-else>{{product.quantity}}</td>
+              <td>{{format(product.price)}}</td>
+              <td>
+                <a @click="editProduct(product)" class="is-unselectable">Edit</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="has-text-centered" v-else>
+          <p class="subtitle">No orders to display!</p>
         </div>
       </div>
     </div>
@@ -103,6 +146,7 @@ import { Options, Vue } from 'vue-class-component';
       };
     },
     products() { return this.$store.state.products; },
+    orders() { return this.$store.state.orders; },
   },
   methods: {
     format(number: number) {
@@ -137,6 +181,23 @@ import { Options, Vue } from 'vue-class-component';
       };
       this.openEditor();
     },
+    async deleteProduct() {
+      if (this.submitting) {
+        return;
+      }
+      this.error = undefined;
+      this.submitting = true;
+      try {
+        if (this.editData.id) {
+          await this.$store.dispatch('deleteProduct', this.editData.id);
+        }
+        this.closeEditModal();
+      } catch (e) {
+        this.error = 'Failed to delete product';
+      } finally {
+        this.submitting = false;
+      }
+    },
     openEditor() {
       this.showEditModal = true;
     },
@@ -147,6 +208,7 @@ import { Options, Vue } from 'vue-class-component';
       if (this.submitting) {
         return;
       }
+      this.error = undefined;
       this.submitting = true;
       try {
         if (this.editData.id) {
