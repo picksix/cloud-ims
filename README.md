@@ -19,4 +19,4 @@ TypeScript- TypeScript is a superset of JavaScript and was used in this project 
 Firebase Infrastructure- 
 Cloud Firestore is a scalable NoSQL cloud database that keeps application data in sync accross the client and serverside regardless of network connectivity or latency. Firestore's NoSQL model allows us to store data as documents containing fields mapped to certain values. The documents are then stored in collections, which allows us to organize our data and build queries. In this project we utilized shallow queries to retrieve and filter data and added realtime listeners to keep the data in our web application updated, without having to constantly retrieve our entire database.   
 
-Security- 
+Security- Public server
