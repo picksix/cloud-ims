@@ -49,3 +49,8 @@ export function buyProduct(order: Order) {
     return true;
   });
 }
+
+export function deleteOrder(id: string) {
+  const d = doc(orders, id);
+  return deleteDoc(d);
+}

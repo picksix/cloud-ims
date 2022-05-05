@@ -91,27 +91,20 @@
         <table class="table is-fullwidth" v-if="orders.length">
           <thead>
             <tr>
-              <th>Name</th>
+              <th>Customer</th>
+              <th>CC</th>
+              <th>Product</th>
               <th class="is-narrow">Quantity</th>
-              <th class="is-narrow">Price</th>
-              <th class="is-narrow"></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="product in products" :key="product.id">
-              <td>
-                <p>
-                  {{product.name}} <span class="has-text-danger" v-if="product.quantity === 0">
-                    Out of stock!
-                  </span>
-                </p>
-              </td>
-              <td v-if="product.quantity === 0" class="has-text-danger">{{product.quantity}}</td>
-              <td v-else>{{product.quantity}}</td>
-              <td>{{format(product.price)}}</td>
-              <td>
-                <a @click="editProduct(product)" class="is-unselectable">Edit</a>
-              </td>
+            <tr v-for="order in orders" :key="order.time">
+              <td>{{order.data().order.name ?? 'none'}}</td>
+              <td>{{order.data().order.cc ?? 'none'}}</td>
+              <td>{{order.data().product}}</td>
+              <td>{{order.data().order.quantity}}</td>
+              <td><a @click="deleteOrder(order.id)" class="has-text-danger">Delete</a></td>
             </tr>
           </tbody>
         </table>
@@ -155,6 +148,9 @@ import { Options, Vue } from 'vue-class-component';
         currency: 'USD',
         minimumFractionDigits: 0,
       }).format(number);
+    },
+    deleteOrder(id: string) {
+      this.$store.dispatch('deleteOrder', id);
     },
     resetData() {
       this.editData = {

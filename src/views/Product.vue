@@ -145,6 +145,10 @@ import { Options, Vue } from 'vue-class-component';
       this.err = false;
       this.buying = true;
       try {
+        if (!this.name || !this.ccn) {
+          this.err = true;
+          return;
+        }
         const success = await this.$store.dispatch('buyProduct', {
           id: this.product.id,
           quantity: this.quantity,

@@ -1,5 +1,5 @@
 import {
-  addProduct, buyProduct, deleteProduct, Order, products, updateProduct,
+  addProduct, buyProduct, deleteOrder, deleteProduct, Order, orders, products, updateProduct,
 } from '@/api/store';
 import {
   MaybeProduct, Product, ProductInstance, Products,
@@ -21,6 +21,9 @@ const store = createStore({
       if (state.initialized) return;
       state.initialized = true;
     },
+    setOrders(state, list) {
+      state.orders = list;
+    },
   },
   actions: {
     async buyProduct(context, payload: Order) {
@@ -38,6 +41,9 @@ const store = createStore({
       });
       store.commit('setProducts', list);
       store.commit('initialize');
+    },
+    readOrdersSnapshot(context, snapshot: QuerySnapshot) {
+      store.commit('setOrders', snapshot.docs.sort((a, b) => b.data().time.seconds - a.data().time.seconds).slice(0, 10));
     },
     async fetchProducts(context) {
       const snapshot = await getDocs(products);
@@ -62,6 +68,9 @@ const store = createStore({
     async deleteProduct(context, id: string) {
       return deleteProduct(id);
     },
+    async deleteOrder(context, id: string) {
+      return deleteOrder(id);
+    },
   },
   modules: {
   },
@@ -69,6 +78,10 @@ const store = createStore({
 
 onSnapshot(products, (snapshot) => {
   store.dispatch('readSnapshot', snapshot);
+});
+
+onSnapshot(orders, (snapshot) => {
+  store.dispatch('readOrdersSnapshot', snapshot);
 });
 
 export default store;
