@@ -18,11 +18,11 @@
           </div>
           <div class="field">
             <p class="label">Price</p>
-            <input type="number" class="input" v-model="editData.price">
+            <input type="number" class="input" min="1" v-model="editData.price">
           </div>
           <div class="field">
             <p class="label">Quantity</p>
-            <input type="number" class="input" v-model="editData.quantity">
+            <input type="number" class="input" min="0" v-model="editData.quantity">
           </div>
           <br>
           <p class="help has-text-danger" v-if="error">{{error}}</p>
